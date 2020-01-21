@@ -11,7 +11,7 @@ This method aims at producing a highly compact set of detection windows for sali
 ## Prerequisites
 1. Linux
 2. Python3 
-3. Tensorflow and Keras
+3. Tensorflow v2 and Keras
 
 ## Quick Start
 1. Unzip the files to a local folder (denoted as **root_folder**).

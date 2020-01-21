@@ -10,20 +10,18 @@ This method aims at producing a highly compact set of detection windows for sali
 
 ## Prerequisites
 1. Linux
-2. Matlab 
-3. Caffe & Matcaffe (**We use the official master branch downloaded on 4/1/2016. Previous versions may not be compatible.**)
+2. Python3 
+3. Tensorflow and Keras
 
 ## Quick Start
 1. Unzip the files to a local folder (denoted as **root_folder**).
-2. Enter the **root_folder** and modify the Matcaffe path in **setup.m**.
-3. In Matlab, run **setup.m** and it will automatically download the pre-trained GoogleNet model.
-4. Run **demo.m**.
+2. Run **demo.py**.
  
 ## Evaluation
-You can reproduce the result on [the MSO dataset](http://cs-people.bu.edu/jmzhang/sos.html) reported in the paper, by run **benchmarkMSO.m**. It will automatically download the MSO dataset and the pre-trained VGG16 model.
+You can reproduce the result on [the MSO dataset](http://cs-people.bu.edu/jmzhang/sos.html) reported in the paper, by run **benchmarkMSO.py**. It will automatically download the MSO dataset and the pre-trained VGG16 model.
 
 ## Miscs
-To change CNN models or other configurations, please check **getParam.m**.
+To change CNN models or other configurations, please check **getParam.py**.
 
 In the demo, we use the pre-trained GoogleNet, which is faster and slightly better than the VGG16 model used in our paper.
 We have also added a heuristic window refining process for small objects. 

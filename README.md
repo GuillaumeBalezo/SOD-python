@@ -2,11 +2,13 @@
 
 [![License](https://img.shields.io/packagist/l/doctrine/orm.svg)](LICENSE)
 
-This my implementation of the salient object detection method described in
+This is my implementation of the salient object detection method described in
 
 > [Jianming Zhang, Stan Sclaroff, Zhe Lin, Xiaohui Shen, Brian Price and Radomír Mech. "Unconstrained Salient Object Detection via Proposal Subset Optimization." CVPR, 2016.](http://cs-people.bu.edu/jmzhang/sod.html)
 
 The [original implementation](https://github.com/jimmie33/SOD) was in Matlab and Caffe. I converted it in Python and Tensorflow.
+
+
 This method aims at producing a highly compact set of detection windows for salient objects in uncontrained images, which may or may not contain salient objects. Please cite the above paper if you find this work useful.
 
 ![Alt text](results/birds.jpg?raw=true "A prediction from SOD")

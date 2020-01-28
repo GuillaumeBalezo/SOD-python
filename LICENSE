@@ -1,6 +1,8 @@
 The MIT License (MIT)
 
-This code is written by Jianming Zhang based on the method in the following paper.
+This code is written by Guillaume Balezo.
+
+The original code was written by Jianming Zhang based on the method in the following paper.
 
 Jianming Zhang, Stan Sclaroff, Zhe Lin, Xiaohui Shen, Brian Price and Radomír Měch. 
 "Unconstrained Salient Object Detection via Proposal Subset Optimization." CVPR, 

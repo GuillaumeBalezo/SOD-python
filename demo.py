@@ -1,49 +1,34 @@
-import numpy as np
-from scipy import cluster
-import tensorflow as tf
-import matplotlib.pyplot as plt
-import PIL.ImageDraw as ImageDraw
-from PIL import Image
+# Demo of the salient object detector
+#
+# Jianming Zhang, Stan Sclaroff, Zhe Lin, Xiaohui Shen,
+# Brian Price and Radomír Mech. "Unconstrained Salient
+# Object Detection via Proposal Subset Optimization."
+# CVPR, 2016.
+# Code written by Guillaume Balezo, 2020
+
+import glob2
+from functions.SOD_class import SOD
 import cv2
-import time
-from tensorflow.keras import backend as K
-from tensorflow.keras.applications.vgg16 import preprocess_input
-from tensorflow.keras.preprocessing.image import load_img
+import os
+from tqdm import tqdm
 
+sod_model = SOD()
 
-fn = 'birds.jpg'
-I = np.array(load_img(fn))
-print(I.shape)
+fns = ['birds.jpg']
+res_all = sod_model.predict(fns, refine = True, verbose = True)
 
-imsz = [I.shape[0], I.shape[1]]
-param = getParam(modelName = 'SOD_python', weights_path = '/content/drive/My Drive/Meero/weights/sod_cnn_weights.h5', center_path = '/content/drive/My Drive/Meero/layout_aware_subnet/SOD_python/center100.npy')
+save_dir = 'results'
+if not os.path.isdir(save_dir):
+  os.mkdir(save_dir)
 
-K.clear_session()
-net = initModel(param)
-
-tic = time.time()
-P, S = getProposals(I, net, param)
-res, _ = propOpt(P, S, param)
-# scale bboxes to full size
-res = res * np.tile(np.roll(imsz, 1), 2)[:, None]
-# optional window refining process
-toc = time.time()
-print('Time elapsed: {}'.format(round(toc - tic, 2)))
-for i in range(res.shape[1]):
-  rect = res[:, i]
-  #rect[2:] = rect[2:] - rect[:2] + 1
-  rect = rect.astype(int)
-  I = cv2.rectangle(I, (rect[0], rect[1]), (rect[2], rect[3]), color = (255,0,0), thickness = 5)
-
-cv2_imshow(I)
-
-# optional window refining process
-resRefine = refineWin(I, res, net, param)
-I = np.array(load_img(fn))
-for i in range(len(resRefine)):
-  rect = resRefine[:, i]
-  rect[2:] = rect[2:] - rect[:2] + 1
-  rect = rect.astype(int)
-  I = cv2.rectangle(I, (rect[0], rect[1]), (rect[2], rect[3]), color = (255,0,0))
-
-cv2_imshow(I)
+for i in tqdm(range(len(res_all))):
+    fname = fns[i]
+    I = cv2.imread(fname)
+    res = res_all[i].astype(int)
+    if res.size == 0:
+        cv2.imwrite(save_dir + '/' + fname, I)
+    else:
+        for j in range(res.shape[1]):
+            rect = res[:, j]
+            I = cv2.rectangle(I, (rect[0], rect[1]), (rect[2], rect[3]), (255, 0, 0), thickness = 5)
+        cv2.imwrite(save_dir + '/' + fname, I)

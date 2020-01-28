@@ -1,4 +1,14 @@
-def getParam(modelName, weights_path, center_path):
+# File for setting the parameters of the model
+#
+# Jianming Zhang, Stan Sclaroff, Zhe Lin, Xiaohui Shen,
+# Brian Price and Radomír Mech. "Unconstrained Salient
+# Object Detection via Proposal Subset Optimization."
+# CVPR, 2016.
+# Code written by Guillaume Balezo, 2020
+
+import numpy as np
+
+def get_param(modelName, weights_path, center_path):
   param = {}
   param['modelName'] = modelName
   # See the paper for the meaning of the following three parameters
@@ -27,6 +37,6 @@ def getParam(modelName, weights_path, center_path):
   param['GPUID'] = 0
   param['width'] = 224
   param['height'] = 224
-  param['batchSize'] = 10
+  param['batchSize'] = 8
 
   return param
